@@ -1,0 +1,31 @@
+name: a2a_mcp_bridge
+description: An MCP server that acts as a bridge between A2A agents and AI clients.
+version: 1.0.0
+repository: https://github.com/shamblett/a2a_mcp_bridge
+homepage: https://github.com/shamblett/a2a_mcp_bridge
+
+funding:
+  - https://www.darticulate.com/#funding
+
+environment:
+  sdk: '>=3.9.0 <4.0.0'
+
+dependencies:
+    uuid: '^4.5.2'
+    meta: '^1.16.0'
+    a2a: '^3.3.0'
+    mcp_dart: '1.0.2'
+
+
+dev_dependencies:
+  test: '^1.28.0'
+  lints: '^6.0.0'
+
+topics:
+  - ai
+  - mcp
+  - web
+
+screenshots:
+    - description: 'Agent 2 Agent(A2A) MCP Bridge'
+      path: example/screenshots/a2a.jpg
