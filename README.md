@@ -1,7 +1,3 @@
-# a2a
-
-This package provides an MCP Bridge server for the Agent 2 Agent(A2A) protocol Dart (package)[https://pub.dev/packages/a2a].
-
 # The A2A MCP Bridge
 
 An MCP server that bridges the Model Context Protocol (MCP) with the Agent-to-Agent (A2A) protocol, enabling MCP-compatible AI assistants (like Gemini, Claude etc.) to seamlessly interact with A2A agents.
@@ -68,6 +64,6 @@ Now start Gemini CLI, you should see the MCP Bridge listed and connected, pressi
 You can now register your agents and ask them questions. The following screenshot shows Gemini CLI
 interacting with the Movie Agent sample to answer questions about movies.
 
-![Movie Agent Integration](gemini-movie-agent.jpg)
+![Movie Agent Integration](example/mcp/gemini-movie-agent.jpg)
 
 A more complete conversation with Gemini CLI and the Movie Agent can be found [here](https://github.com/shamblett/a2a_mcp_bridge/blob/main/example/mcp/conversation.txt).
