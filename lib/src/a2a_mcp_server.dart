@@ -85,8 +85,8 @@ class A2AMCPServer {
 
     // Start the HTTTServer
     _httpServer = await HttpServer.bind(host, port);
-    print(
-      '${Colorize('A2AMcpServer: - MCP Streamable HTTP Server listening on port $port').blue()}',
+    A2ALog.info(
+      'A2AMcpServer: - MCP Streamable HTTP Server listening on port $port',
     );
     _httpServer?.listen((request) async {
       if (request.uri.path == '/mcp') {

@@ -275,9 +275,7 @@ class A2AMCPBridge {
     RequestHandlerExtra? extra,
   }) async {
     if (args == null) {
-      print(
-        '${Colorize('A2AMCPBridge::_registerAgentCallback - args are null').yellow()}',
-      );
+      A2ALog.warn('A2AMCPBridge::_registerAgentCallback - args are null');
       return CallToolResult.fromContent(
         content: [TextContent(text: '_registerAgentCallback - args are null')],
         isError: true,
@@ -300,8 +298,8 @@ class A2AMCPBridge {
       );
     }
     if (agentCard.name.isEmpty) {
-      print(
-        '${Colorize('A2AMcpServer::_registerAgentCallback - cannot ascertain agent name at $url').yellow()}',
+      A2ALog.warn(
+        'A2AMcpServer::_registerAgentCallback - cannot ascertain agent name at $url',
       );
       return CallToolResult.fromContent(
         content: [
@@ -314,9 +312,7 @@ class A2AMCPBridge {
       );
     }
     registerAgent(agentCard.name, url, agentCard);
-    print(
-      '${Colorize('A2AMCPBridge:: Agent ${agentCard.name} at $url registered').blue()}',
-    );
+    A2ALog.info('A2AMCPBridge:: Agent ${agentCard.name} at $url registered');
     final result = {"agent_name": agentCard.name, "url": url};
     final content = {
       "content": [
@@ -333,6 +329,9 @@ class A2AMCPBridge {
     RequestHandlerExtra? extra,
   }) async {
     final registeredAgents = registeredAgentNames;
+    A2ALog.info(
+      'A2AMCPBridge:: Listed ${_registeredAgents.keys.length} agents, response $registeredAgents',
+    );
     print(
       '${Colorize('A2AMCPBridge:: Listed ${_registeredAgents.keys.length} agents, response $registeredAgents').blue()}',
     );
@@ -354,9 +353,7 @@ class A2AMCPBridge {
     RequestHandlerExtra? extra,
   }) async {
     if (args == null) {
-      print(
-        '${Colorize('A2AMCPBridge::_unregisterAgentCallback - args are null').yellow()}',
-      );
+      A2ALog.warn('A2AMCPBridge::_unregisterAgentCallback - args are null');
       return CallToolResult.fromContent(
         content: [
           TextContent(text: '_unregisterAgentCallback - args are null'),
@@ -369,7 +366,7 @@ class A2AMCPBridge {
     agentName ??= 'Agent Not Found';
     unregisterAgent(url);
 
-    print('${Colorize('A2AMCPBridge:: Agent at $url unregistered').blue()}');
+    A2ALog.info('A2AMCPBridge:: Agent at $url unregistered');
 
     final content = {
       "content": [
@@ -386,9 +383,7 @@ class A2AMCPBridge {
     RequestHandlerExtra? extra,
   }) async {
     if (args == null) {
-      print(
-        '${Colorize('A2AMCPBridge::_sendMessageCallback - args are null').yellow()}',
-      );
+      A2ALog.warn('A2AMCPBridge::_sendMessageCallback - args are null');
       return CallToolResult.fromContent(
         content: [TextContent(text: '_sendMessageCallback - args are null')],
         isError: true,
@@ -420,8 +415,8 @@ class A2AMCPBridge {
       final response = await client.sendMessage(params);
       if (response.isError) {
         final errorResponse = response as A2AJSONRPCErrorResponseS;
-        print(
-          '${Colorize('A2AMCPBridge::_sendMessageCallback - error response ${errorResponse.error?.rpcErrorCode} from agent').yellow()}',
+        A2ALog.warn(
+          'A2AMCPBridge::_sendMessageCallback - error response ${errorResponse.error?.rpcErrorCode} from agent',
         );
         return CallToolResult.fromContent(
           content: [
@@ -457,9 +452,8 @@ class A2AMCPBridge {
         }
       }
 
-      print(
-        '${Colorize('A2AMCPBridge:: Send message successful for agent at $url').blue()}',
-      );
+      A2ALog.info('A2AMCPBridge:: Send message successful for agent at $url');
+
       // Return success
       addTaskResponse(taskId, responseText);
       final result = {"task_id": taskId, "response": responseText};
@@ -488,9 +482,7 @@ class A2AMCPBridge {
     RequestHandlerExtra? extra,
   }) async {
     if (args == null) {
-      print(
-        '${Colorize('A2AMCPBridge::_getTaskResultCallback - args are null').yellow()}',
-      );
+      A2ALog.warn('A2AMCPBridge::_getTaskResultCallback - args are null');
       return CallToolResult.fromContent(
         content: [TextContent(text: '_getTaskResultCallback - args are null')],
         isError: true,
@@ -500,8 +492,8 @@ class A2AMCPBridge {
     final taskId = args['task_id'];
 
     if (!_taskToAgent.containsKey(taskId)) {
-      print(
-        '${Colorize('A2AMCPBridge::_getTaskResultCallback - no registered agent for task Id $taskId').yellow()}',
+      A2ALog.warn(
+        'A2AMCPBridge::_getTaskResultCallback - no registered agent for task Id $taskId',
       );
       return CallToolResult.fromContent(
         content: [
@@ -536,8 +528,8 @@ class A2AMCPBridge {
       String? taskState = 'From Cache';
       if (response.isError) {
         final errorResponse = response as A2AJSONRPCErrorResponseT;
-        print(
-          '${Colorize('A2AMCPBridge::_sendMessageCallback - error response ${errorResponse.error?.rpcErrorCode} from agent').yellow()}',
+        A2ALog.warn(
+          'A2AMCPBridge::_sendMessageCallback - error response ${errorResponse.error?.rpcErrorCode} from agent',
         );
         return CallToolResult.fromContent(
           content: [
@@ -568,8 +560,8 @@ class A2AMCPBridge {
       }
       // Return success
       addTaskResponse(taskId, responseText);
-      print(
-        '${Colorize('A2AMCPBridge:: Get task result successful for agent at $url').blue()}',
+      A2ALog.info(
+        'A2AMCPBridge:: Get task result successful for agent at $url',
       );
       final result = {
         "task_id": taskId,
@@ -602,9 +594,7 @@ class A2AMCPBridge {
     RequestHandlerExtra? extra,
   }) async {
     if (args == null) {
-      print(
-        '${Colorize('A2AMCPBridge::_cancelTaskCallback - args are null').yellow()}',
-      );
+      A2ALog.warn('A2AMCPBridge::_cancelTaskCallback - args are null');
       return CallToolResult.fromContent(
         content: [TextContent(text: '_cancelTaskCallback - args are null')],
         isError: true,
@@ -614,8 +604,8 @@ class A2AMCPBridge {
     final String taskId = args['task_id'];
 
     if (taskToAgent(taskId) == null) {
-      print(
-        '${Colorize('A2AMCPBridge::_cancelTaskCallback - no registered agent for task Id $taskId').yellow()}',
+      A2ALog.warn(
+        'A2AMCPBridge::_cancelTaskCallback - no registered agent for task Id $taskId',
       );
       return CallToolResult.fromContent(
         content: [TextContent(text: 'No task registered for Task Id $taskId')],
@@ -642,8 +632,8 @@ class A2AMCPBridge {
       final response = await client.cancelTask(params);
       if (response.isError) {
         final errorResponse = response as A2AJSONRPCErrorResponse;
-        print(
-          '${Colorize('A2AMCPBridge::_cancelTaskCallback - error response ${errorResponse.error?.rpcErrorCode} from agent').yellow()}',
+        A2ALog.warn(
+          'A2AMCPBridge::_cancelTaskCallback - error response ${errorResponse.error?.rpcErrorCode} from agent',
         );
         return CallToolResult.fromContent(
           content: [
@@ -655,9 +645,7 @@ class A2AMCPBridge {
           isError: true,
         );
       } else {
-        print(
-          '${Colorize('A2AMCPBridge:: Cancel task completed for agent at $url').blue()}',
-        );
+        A2ALog.info('A2AMCPBridge:: Cancel task completed for agent at $url');
         if (taskHasResponse(taskId)) {
           removeTaskToAgent(taskId);
           removeTaskResponse(taskId);

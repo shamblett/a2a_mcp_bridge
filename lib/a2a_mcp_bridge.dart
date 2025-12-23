@@ -5,5 +5,16 @@
 * Copyright :  S.Hamblett
 */
 
+library;
+
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:a2a/a2a.dart';
-export 'src/a2a_mcp_bridge.dart';
+import 'package:colorize/colorize.dart';
+import 'package:mcp_dart/mcp_dart.dart';
+import 'package:uuid/uuid.dart';
+
+part 'src/a2a_mcp_bridge.dart';
+part 'src/a2a_mcp_server.dart';
+part 'src/a2a_log.dart';

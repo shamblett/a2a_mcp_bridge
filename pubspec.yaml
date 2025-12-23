@@ -15,6 +15,7 @@ dependencies:
     meta: '^1.16.0'
     a2a: '^3.3.0'
     mcp_dart: '1.0.2'
+    colorize: '^3.0.0'
 
 
 dev_dependencies:
@@ -27,5 +28,5 @@ topics:
   - web
 
 screenshots:
-    - description: 'Agent 2 Agent(A2A) MCP Bridge'
-      path: example/screenshots/a2a.jpg
+    - description: 'Agent 2 Agent(A2A) MCP Bridge Server'
+      path: example/screenshots/mcp.png
