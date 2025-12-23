@@ -5,9 +5,7 @@
 * Copyright :  S.Hamblett
 */
 
-import 'package:colorize/colorize.dart';
-
-import 'package:a2a/a2a.dart';
+import 'package:a2a_mcp_bridge/a2a_mcp_bridge.dart';
 
 ///
 /// An example showing usage of the MCP to A2A bridge.
@@ -19,7 +17,7 @@ import 'package:a2a/a2a.dart';
 ///
 Future<void> main() async {
   // Create and start the bridge
-  print('${Colorize('Creating MCP Bridge').blue()}');
+  A2ALog.info('Creating MCP Bridge');
   A2AMCPBridge a2aMcpBridge = A2AMCPBridge(
     name: 'A2A MCP Bridge Manual Test',
     version: '1.0.1',
@@ -28,7 +26,7 @@ Future<void> main() async {
     await a2aMcpBridge
         .startServer(); // Set your port if you do not want the default
   } catch (e) {
-    print('${Colorize('MCP Bridge failed to start $e').red()}');
+    A2ALog.fatal('MCP Bridge failed to start $e');
     return;
   }
 }
