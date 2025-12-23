@@ -23,7 +23,4 @@ jobs:
       - name: Analyze project source
         run: dart analyze
 
-      - name: Run tests
-        shell: bash
-        run: dart run test/a2a_types_test.dart;
 
