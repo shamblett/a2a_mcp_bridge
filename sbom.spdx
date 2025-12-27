@@ -5,18 +5,18 @@ DocumentName: a2a_mcp_bridge
 DocumentNamespace: https://pub.dev/packages/a2a_mcp_bridge
 LicenseListVersion: 3.8
 Creator: Tool: https://pub.dev/packages/sbom
-Created: 2025-12-23T10:50:44Z
+Created: 2025-12-27T15:05:40Z
 
 
 PackageName: a2a-mcp-bridge
 SPDXID: SPDXRef-Package-a2a-mcp-bridge
-PackageVersion: 1.0.0
+PackageVersion: 1.0.1
 PackageFileName: a2a_mcp_bridge
 PackageSupplier: NOASSERTION
 PackageOriginator: NOASSERTION
 PackageDownloadLocation: https://pub.dev/packages/a2a_mcp_bridge
 FilesAnalyzed: true
-PackageVerificationCode: bbae25e1ef667c9dfb492935375bccee4beb2451
+PackageVerificationCode: 73714679cbc7c45aa3eca510165faa7356c44e56
 PackageHomePage: https://pub.dev/packages/a2a_mcp_bridge
 PackageLicenseConcluded: MIT
 PackageLicenseInfoFromFiles: NOASSERTION
@@ -28,7 +28,7 @@ PackageSummary: <text>An MCP server that acts as a bridge between A2A agents and
 FileName: lib/a2a_mcp_bridge.dart
 SPDXID: SPDXRef-a2a-mcp-bridge-0
 FileType: SOURCE
-FileChecksum: SHA1: 411e58988eaf5b1d31771290e97b836e36b8caf7
+FileChecksum: SHA1: 8df6c0d24aa0946433aac7a8ca58e5bc3cbb955d
 LicenseConcluded: NOASSERTION
 LicenseInfoInFile: NOASSERTION
 FileCopyrightText: NOASSERTION
@@ -37,7 +37,7 @@ FileCopyrightText: NOASSERTION
 FileName: lib/src/a2a_log.dart
 SPDXID: SPDXRef-a2a-log-1
 FileType: SOURCE
-FileChecksum: SHA1: dd07bd3eb101fcb5a30239dfe0751c9d9e6d3ae5
+FileChecksum: SHA1: b801fca78fa5d65589945c6a12a96c801d2b3098
 LicenseConcluded: NOASSERTION
 LicenseInfoInFile: NOASSERTION
 FileCopyrightText: NOASSERTION
@@ -46,7 +46,7 @@ FileCopyrightText: NOASSERTION
 FileName: lib/src/a2a_mcp_bridge.dart
 SPDXID: SPDXRef-a2a-mcp-bridge-2
 FileType: SOURCE
-FileChecksum: SHA1: b801fca78fa5d65589945c6a12a96c801d2b3098
+FileChecksum: SHA1: 411e58988eaf5b1d31771290e97b836e36b8caf7
 LicenseConcluded: NOASSERTION
 LicenseInfoInFile: NOASSERTION
 FileCopyrightText: NOASSERTION
@@ -55,7 +55,7 @@ FileCopyrightText: NOASSERTION
 FileName: lib/src/a2a_mcp_server.dart
 SPDXID: SPDXRef-a2a-mcp-server-3
 FileType: SOURCE
-FileChecksum: SHA1: 8df6c0d24aa0946433aac7a8ca58e5bc3cbb955d
+FileChecksum: SHA1: dd07bd3eb101fcb5a30239dfe0751c9d9e6d3ae5
 LicenseConcluded: NOASSERTION
 LicenseInfoInFile: NOASSERTION
 FileCopyrightText: NOASSERTION
@@ -64,7 +64,7 @@ FileCopyrightText: NOASSERTION
 FileName: pubspec.yaml
 SPDXID: SPDXRef-pubspec-4
 FileType: TEXT
-FileChecksum: SHA1: 9de2fc8361b12edb585fe196d279f5c04b4e5115
+FileChecksum: SHA1: 14464724eb3ed5688c48544073473dffc586e708
 LicenseConcluded: NOASSERTION
 LicenseInfoInFile: NOASSERTION
 FileCopyrightText: NOASSERTION
