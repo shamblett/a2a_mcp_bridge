@@ -679,14 +679,14 @@ class A2AMCPBridge {
     // Register an A2A agent with the bridge server.
     var inputSchema = ToolInputSchema(
       properties: {
-        "url": {"type": "string", "description": "The agent URL"},
+        "url": JsonSchema.fromJson({"type": "string", "description": "The agent URL"}),
       },
       required: ["url"],
     );
     var outputSchema = ToolOutputSchema(
       properties: {
-        "agent_name": {"type": "string", "description": "Name of the agent"},
-        "url": {"type": "string", "description": "Url of the agent"},
+        "agent_name": JsonSchema.fromJson({"type": "string", "description": "Name of the agent"}),
+        "url": JsonSchema.fromJson({"type": "string", "description": "Url of the agent"}),
       },
       required: ["agent_name", "url"],
     );
@@ -703,7 +703,7 @@ class A2AMCPBridge {
     inputSchema = ToolInputSchema(properties: {});
     outputSchema = ToolOutputSchema(
       properties: {
-        "result": {"type": "any", "description": "Registered Agents by name"},
+        "result": JsonSchema.fromJson({"type": "any", "description": "Registered Agents by name"}),
       },
       required: ["result"],
     );
@@ -720,13 +720,13 @@ class A2AMCPBridge {
     // Unregister an A2A agent from the bridge server.
     inputSchema = ToolInputSchema(
       properties: {
-        "url": {"type": "string", "description": "The Agent URL"},
+        "url": JsonSchema.fromJson({"type": "string", "description": "The Agent URL"}),
       },
       required: ["url"],
     );
     outputSchema = ToolOutputSchema(
       properties: {
-        "agent_name": {"type": "string", "description": "The Agent name"},
+        "agent_name": JsonSchema.fromJson({"type": "string", "description": "The Agent name"}),
       },
     );
     final unRegisterAgent = Tool(
@@ -741,25 +741,24 @@ class A2AMCPBridge {
     // Send a message to an A2A agent, non-streaming.
     inputSchema = ToolInputSchema(
       properties: {
-        "url": {"type": "string", "description": "The Agent URL"},
-        "message": {
+        "url": JsonSchema.fromJson({"type": "string", "description": "The Agent URL"}),
+        "message": JsonSchema.fromJson({
           "type": "string",
           "description": "Message to send to the agent",
-        },
-        "session_id": {
+        }),
+        "session_id": JsonSchema.fromJson({
           "type": "string",
           "description": "Multi conversation session id",
-        },
-      },
+        )},
       required: ["url", "message"],
     );
     outputSchema = ToolOutputSchema(
       properties: {
-        "task_id": {"type": "string", "description": "The Task Id"},
-        "response": {
+        "task_id": JsonSchema.fromJson({"type": "string", "description": "The Task Id"}),
+        "response": JsonSchema.fromJson({
           "type": "string",
           "description": "Response from the Agent",
-        },
+        }),
       },
       required: ["task_id"],
     );
@@ -775,21 +774,21 @@ class A2AMCPBridge {
     // Retrieve the result of a task from an A2A agent.
     inputSchema = ToolInputSchema(
       properties: {
-        "task_id": {"type": "string", "description": "The Task id"},
+        "task_id": JsonSchema.fromJson({"type": "string", "description": "The Task id"}),
       },
       required: ["task_id"],
     );
     outputSchema = ToolOutputSchema(
       properties: {
-        "task_id": {"type": "string", "description": "The task id"},
-        "task_state": {
+        "task_id": JsonSchema.fromJson({"type": "string", "description": "The task id"}),
+        "task_state": JsonSchema.fromJson({
           "type": "string",
           "description": "The state of the task",
-        },
-        "message": {
+        }),
+        "message": JsonSchema.fromJson({
           "type": "string",
           "description": "The response from the Agent(may be from cache",
-        },
+        }),
       },
       required: ["task_id"],
     );
@@ -805,13 +804,13 @@ class A2AMCPBridge {
     // Cancel a running task on an A2A agent.
     inputSchema = ToolInputSchema(
       properties: {
-        "task_id": {"type": "string", "description": "The task id"},
+        "task_id": JsonSchema.fromJson({"type": "string", "description": "The task id"}),
       },
       required: ["task_id"],
     );
     outputSchema = ToolOutputSchema(
       properties: {
-        "task_id": {"type": "string", "description": "The task id"},
+        "task_id": JsonSchema.fromJson({"type": "string", "description": "The task id"}),
       },
       required: ["task_id"],
     );
