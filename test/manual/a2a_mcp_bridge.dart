@@ -57,17 +57,17 @@ Future<void> main() async {
     expect(tools.tools.last.name, 'cancel_task');
   });
   test('List Agents', () async {
-    final params = CallToolRequestParams(name: 'list_agents');
+    final params = CallToolRequest(name: 'list_agents');
     final result = await client.callTool(params);
     expect(result.isError, isNull);
     final content = result.structuredContent;
-    expect(content['result'] is Map, isTrue);
+    expect(content!['result'] is Map, isTrue);
     final res = content['result'];
     expect(res['result'] is List, isTrue);
     expect(res['result'].first is String, isTrue);
   });
   test('Register Agent - null arguments', () async {
-    final params = CallToolRequestParams(name: 'register_agent');
+    final params = CallToolRequest(name: 'register_agent');
     final result = await client.callTool(params);
     expect(result.isError, isTrue);
     final content = result.content;
@@ -78,26 +78,26 @@ Future<void> main() async {
     );
   });
   test('Register Agent Agent contacted', () async {
-    final params = CallToolRequestParams(
+    final params = CallToolRequest(
       name: 'register_agent',
       arguments: {'url': agentUrl},
     );
     final result = await client.callTool(params);
     expect(result.isError, isNull);
     final content = result.structuredContent;
-    expect(content['agent_name'], 'Hello World Agent');
+    expect(content!['agent_name'], 'Hello World Agent');
     expect(content['url'], agentUrl);
-    final params1 = CallToolRequestParams(name: 'list_agents');
+    final params1 = CallToolRequest(name: 'list_agents');
     final result1 = await client.callTool(params1);
     expect(result1.isError, isNull);
     final content1 = result1.structuredContent;
-    expect(content1.length, 1);
-    expect(content1['result'], {
+    expect(content1?.length, 1);
+    expect(content1!['result'], {
       'result': ['Hello World Agent'],
     });
   });
   test('Send Message - null arguments', () async {
-    final params = CallToolRequestParams(name: 'send_message');
+    final params = CallToolRequest(name: 'send_message');
     final result = await client.callTool(params);
     expect(result.isError, isTrue);
     final content = result.content;
@@ -108,26 +108,26 @@ Future<void> main() async {
     );
   });
   test('Send Message - valid arguments', () async {
-    final paramsReg = CallToolRequestParams(
+    final paramsReg = CallToolRequest(
       name: 'register_agent',
       arguments: {'url': agentUrl},
     );
     await client.callTool(paramsReg);
-    final params = CallToolRequestParams(
+    final params = CallToolRequest(
       name: 'send_message',
       arguments: {'url': agentUrl, 'message': 'Hello agent'},
     );
     final result = await client.callTool(params);
     expect(result.isError, isNull);
     final content = result.structuredContent;
-    expect(content['task_id'] is String, isTrue);
+    expect(content!['task_id'] is String, isTrue);
     expect(
       content['response'],
       'Response from <Hello World Agent> agent\n\nHello World',
     );
   });
   test('Unregister Agent - null arguments', () async {
-    final params = CallToolRequestParams(name: 'unregister_agent');
+    final params = CallToolRequest(name: 'unregister_agent');
     final result = await client.callTool(params);
     expect(result.isError, isTrue);
     final content = result.content;
@@ -138,7 +138,7 @@ Future<void> main() async {
     );
   });
   test('Unregister Agent - valid arguments', () async {
-    final params = CallToolRequestParams(
+    final params = CallToolRequest(
       name: 'unregister_agent',
       arguments: {'url': 'http://localhost:9999'},
     );
@@ -146,12 +146,12 @@ Future<void> main() async {
     expect(result.isError, isNull);
     final content = result.structuredContent;
     expect(
-      content['agent_name'],
+      content!['agent_name'],
       anyOf('Hello World Agent', 'Agent Not Found'),
     );
   });
   test('Get Task Result - null arguments', () async {
-    final params = CallToolRequestParams(name: 'get_task_result');
+    final params = CallToolRequest(name: 'get_task_result');
     final result = await client.callTool(params);
     expect(result.isError, isTrue);
     final content = result.content;
@@ -162,20 +162,20 @@ Future<void> main() async {
     );
   });
   test('Get Task Result - valid arguments', () async {
-    final paramsReg = CallToolRequestParams(
+    final paramsReg = CallToolRequest(
       name: 'register_agent',
       arguments: {'url': agentUrl},
     );
     await client.callTool(paramsReg);
-    var params = CallToolRequestParams(
+    var params = CallToolRequest(
       name: 'send_message',
       arguments: {'url': agentUrl, 'message': 'Hello agent'},
     );
     var result = await client.callTool(params);
     expect(result.isError, isNull);
     var content = result.structuredContent;
-    final taskId = content['task_id'];
-    params = CallToolRequestParams(
+    final taskId = content!['task_id'];
+    params = CallToolRequest(
       name: 'get_task_result',
       arguments: {'task_id': taskId},
     );
@@ -183,12 +183,12 @@ Future<void> main() async {
     expect(result.isError, isNull);
     final content1 = result.structuredContent;
     expect(
-      content1['message'],
+      content1!['message'],
       'Response from <Hello World Agent> agent\n\nHello World',
     );
   });
   test('Cancel Task - null arguments', () async {
-    final params = CallToolRequestParams(name: 'cancel_task');
+    final params = CallToolRequest(name: 'cancel_task');
     final result = await client.callTool(params);
     expect(result.isError, isTrue);
     final content = result.content;
@@ -199,26 +199,26 @@ Future<void> main() async {
     );
   });
   test('Cancel Task - valid arguments', () async {
-    final paramsReg = CallToolRequestParams(
+    final paramsReg = CallToolRequest(
       name: 'register_agent',
       arguments: {'url': agentUrl},
     );
     await client.callTool(paramsReg);
-    var params = CallToolRequestParams(
+    var params = CallToolRequest(
       name: 'send_message',
       arguments: {'url': agentUrl, 'message': 'Hello agent'},
     );
     var result = await client.callTool(params);
     expect(result.isError, isNull);
     var content = result.structuredContent;
-    final taskId = content['task_id'];
-    params = CallToolRequestParams(
+    final taskId = content!['task_id'];
+    params = CallToolRequest(
       name: 'cancel_task',
       arguments: {'task_id': taskId},
     );
     result = await client.callTool(params);
     expect(result.isError, isNull);
     final content1 = result.structuredContent;
-    expect(content1['task_id'], taskId);
+    expect(content1!['task_id'], taskId);
   });
 }

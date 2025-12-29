@@ -103,11 +103,11 @@ class A2AMCPServer {
 
   /// Register a tool
   void registerTool(Tool tool, ToolCallback callback) {
-    _server.tool(
+    _server.registerTool(
       tool.name,
       description: tool.description,
-      toolInputSchema: tool.inputSchema,
-      toolOutputSchema: tool.outputSchema,
+      inputSchema: tool.inputSchema,
+      outputSchema: tool.outputSchema,
       callback: callback,
     );
   }
