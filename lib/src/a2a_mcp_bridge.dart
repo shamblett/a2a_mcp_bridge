@@ -705,7 +705,7 @@ class A2AMCPBridge {
       inputSchema: inputSchema,
       outputSchema: outputSchema,
     );
-    registerTool(registerAgent, FunctionToolCallback(_registerAgentCallback));
+    registerTool(registerAgent, _registerAgentCallback as ToolCallback);
 
     // List Agents
     //  List all registered A2A agents.
