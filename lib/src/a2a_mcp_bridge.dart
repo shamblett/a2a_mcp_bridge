@@ -276,7 +276,7 @@ class A2AMCPBridge {
   }) async {
     if (args == null) {
       A2ALog.warn('A2AMCPBridge::_registerAgentCallback - args are null');
-      return CallToolResult.fromContent(
+      return CallToolResult(
         content: [TextContent(text: '_registerAgentCallback - args are null')],
         isError: true,
       );
@@ -287,7 +287,7 @@ class A2AMCPBridge {
       final client = A2AClient(url);
       agentCard = await client.getAgentCard();
     } catch (e) {
-      return CallToolResult.fromContent(
+      return CallToolResult(
         content: [
           TextContent(
             text:
@@ -301,7 +301,7 @@ class A2AMCPBridge {
       A2ALog.warn(
         'A2AMcpServer::_registerAgentCallback - cannot ascertain agent name at $url',
       );
-      return CallToolResult.fromContent(
+      return CallToolResult(
         content: [
           TextContent(
             text:
@@ -354,7 +354,7 @@ class A2AMCPBridge {
   }) async {
     if (args == null) {
       A2ALog.warn('A2AMCPBridge::_unregisterAgentCallback - args are null');
-      return CallToolResult.fromContent(
+      return CallToolResult(
         content: [
           TextContent(text: '_unregisterAgentCallback - args are null'),
         ],
@@ -384,7 +384,7 @@ class A2AMCPBridge {
   }) async {
     if (args == null) {
       A2ALog.warn('A2AMCPBridge::_sendMessageCallback - args are null');
-      return CallToolResult.fromContent(
+      return CallToolResult(
         content: [TextContent(text: '_sendMessageCallback - args are null')],
         isError: true,
       );
@@ -418,7 +418,7 @@ class A2AMCPBridge {
         A2ALog.warn(
           'A2AMCPBridge::_sendMessageCallback - error response ${errorResponse.error?.rpcErrorCode} from agent',
         );
-        return CallToolResult.fromContent(
+        return CallToolResult(
           content: [
             TextContent(
               text:
@@ -464,7 +464,7 @@ class A2AMCPBridge {
         "structuredContent": result,
       });
     } catch (e) {
-      return CallToolResult.fromContent(
+      return CallToolResult(
         content: [
           TextContent(
             text:
@@ -483,7 +483,7 @@ class A2AMCPBridge {
   }) async {
     if (args == null) {
       A2ALog.warn('A2AMCPBridge::_getTaskResultCallback - args are null');
-      return CallToolResult.fromContent(
+      return CallToolResult(
         content: [TextContent(text: '_getTaskResultCallback - args are null')],
         isError: true,
       );
@@ -495,7 +495,7 @@ class A2AMCPBridge {
       A2ALog.warn(
         'A2AMCPBridge::_getTaskResultCallback - no registered agent for task Id $taskId',
       );
-      return CallToolResult.fromContent(
+      return CallToolResult(
         content: [
           TextContent(
             text:
@@ -531,7 +531,7 @@ class A2AMCPBridge {
         A2ALog.warn(
           'A2AMCPBridge::_sendMessageCallback - error response ${errorResponse.error?.rpcErrorCode} from agent',
         );
-        return CallToolResult.fromContent(
+        return CallToolResult(
           content: [
             TextContent(
               text:
@@ -576,7 +576,7 @@ class A2AMCPBridge {
         "structuredContent": result,
       });
     } catch (e) {
-      return CallToolResult.fromContent(
+      return CallToolResult(
         content: [
           TextContent(
             text:
@@ -595,7 +595,7 @@ class A2AMCPBridge {
   }) async {
     if (args == null) {
       A2ALog.warn('A2AMCPBridge::_cancelTaskCallback - args are null');
-      return CallToolResult.fromContent(
+      return CallToolResult(
         content: [TextContent(text: '_cancelTaskCallback - args are null')],
         isError: true,
       );
@@ -607,7 +607,7 @@ class A2AMCPBridge {
       A2ALog.warn(
         'A2AMCPBridge::_cancelTaskCallback - no registered agent for task Id $taskId',
       );
-      return CallToolResult.fromContent(
+      return CallToolResult(
         content: [TextContent(text: 'No task registered for Task Id $taskId')],
         isError: true,
       );
@@ -635,7 +635,7 @@ class A2AMCPBridge {
         A2ALog.warn(
           'A2AMCPBridge::_cancelTaskCallback - error response ${errorResponse.error?.rpcErrorCode} from agent',
         );
-        return CallToolResult.fromContent(
+        return CallToolResult(
           content: [
             TextContent(
               text:
@@ -659,7 +659,7 @@ class A2AMCPBridge {
         });
       }
     } catch (e) {
-      return CallToolResult.fromContent(
+      return CallToolResult(
         content: [
           TextContent(
             text:
