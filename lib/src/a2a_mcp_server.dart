@@ -106,9 +106,9 @@ class A2AMCPServer {
     _server.registerTool(
       tool.name,
       description: tool.description,
-      inputSchema: tool.inputSchema,
-      outputSchema: tool.outputSchema,
-      callback: callback,
+      inputSchema: ToolInputSchema.fromJson(tool.inputSchema.toJson()),
+      outputSchema: ToolOutputSchema.fromJson(tool.outputSchema!.toJson()),
+      callback: callback as ToolFunction,
     );
   }
 }
