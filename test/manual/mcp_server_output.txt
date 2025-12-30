@@ -1,0 +1,14 @@
+Creating MCP Bridge
+A2AMcpServer: - MCP Streamable HTTP Server listening on port 3080
+A2AMCPBridge:: Listed 0 agents, response [No Agents Registered]
+A2AMCPBridge:: Listed 0 agents, response [No Agents Registered]
+A2AMCPBridge:: Agent Hello World Agent at http://localhost:9999 registered
+A2AMCPBridge:: Listed 1 agents, response [Hello World Agent]
+A2AMCPBridge:: Listed 1 agents, response [Hello World Agent]
+A2AMCPBridge:: Agent Hello World Agent at http://localhost:9999 registered
+A2AMCPBridge:: Send message successful for agent at http://localhost:9999
+A2AMCPBridge:: Agent at http://localhost:9999 unregistered
+A2AMCPBridge:: Agent Hello World Agent at http://localhost:9999 registered
+A2AMCPBridge:: Send message successful for agent at http://localhost:9999
+A2AMCPBridge:: Agent Hello World Agent at http://localhost:9999 registered
+A2AMCPBridge:: Send message successful for agent at http://localhost:9999

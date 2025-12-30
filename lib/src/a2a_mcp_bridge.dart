@@ -187,7 +187,7 @@ class A2AMCPBridge {
       _registeredTools.where((t) => t.name == toolName).isNotEmpty;
 
   /// Register a tool
-  void registerTool(Tool tool, ToolCallback callback) {
+  void registerTool(Tool tool, FunctionToolCallback callback) {
     _registeredTools.add(tool);
     _mcpServer.registerTool(tool, callback);
   }
@@ -271,16 +271,9 @@ class A2AMCPBridge {
   // Register agent callback
   // Doesn't check if the agent is already registered, just registers it again
   Future<CallToolResult> _registerAgentCallback(
-    Map<String, dynamic>? args,
-    RequestHandlerExtra? extra,
+    Map<String, dynamic> args,
+    RequestHandlerExtra extra,
   ) async {
-    if (args == null) {
-      A2ALog.warn('A2AMCPBridge::_registerAgentCallback - args are null');
-      return CallToolResult(
-        content: [TextContent(text: '_registerAgentCallback - args are null')],
-        isError: true,
-      );
-    }
     final url = args['url'];
     A2AAgentCard agentCard;
     try {
@@ -349,18 +342,9 @@ class A2AMCPBridge {
   // Doesn't check if the agent is already registered, just unregisters it if
   // it is registered, as such this always returns success if the arguments are valid
   Future<CallToolResult> _unregisterAgentCallback(
-    Map<String, dynamic>? args,
-    RequestHandlerExtra? extra,
+    Map<String, dynamic> args,
+    RequestHandlerExtra extra,
   ) async {
-    if (args == null) {
-      A2ALog.warn('A2AMCPBridge::_unregisterAgentCallback - args are null');
-      return CallToolResult(
-        content: [
-          TextContent(text: '_unregisterAgentCallback - args are null'),
-        ],
-        isError: true,
-      );
-    }
     final url = args['url'];
     String? agentName = lookupAgent(url);
     agentName ??= 'Agent Not Found';
@@ -379,17 +363,9 @@ class A2AMCPBridge {
 
   // Send message callback
   Future<CallToolResult> _sendMessageCallback(
-    Map<String, dynamic>? args,
-    RequestHandlerExtra? extra,
+    Map<String, dynamic> args,
+    RequestHandlerExtra extra,
   ) async {
-    if (args == null) {
-      A2ALog.warn('A2AMCPBridge::_sendMessageCallback - args are null');
-      return CallToolResult(
-        content: [TextContent(text: '_sendMessageCallback - args are null')],
-        isError: true,
-      );
-    }
-
     final String url = args['url'];
     final message = args['message'];
     // Session id if present
@@ -478,17 +454,9 @@ class A2AMCPBridge {
 
   // Get task result
   Future<CallToolResult> _getTaskResultCallback(
-    Map<String, dynamic>? args,
-    RequestHandlerExtra? extra,
+    Map<String, dynamic> args,
+    RequestHandlerExtra extra,
   ) async {
-    if (args == null) {
-      A2ALog.warn('A2AMCPBridge::_getTaskResultCallback - args are null');
-      return CallToolResult(
-        content: [TextContent(text: '_getTaskResultCallback - args are null')],
-        isError: true,
-      );
-    }
-
     final taskId = args['task_id'];
 
     if (!_taskToAgent.containsKey(taskId)) {
@@ -590,17 +558,9 @@ class A2AMCPBridge {
 
   // Cancel task
   Future<CallToolResult> _cancelTaskCallback(
-    Map<String, dynamic>? args,
-    RequestHandlerExtra? extra,
+    Map<String, dynamic> args,
+    RequestHandlerExtra extra,
   ) async {
-    if (args == null) {
-      A2ALog.warn('A2AMCPBridge::_cancelTaskCallback - args are null');
-      return CallToolResult(
-        content: [TextContent(text: '_cancelTaskCallback - args are null')],
-        isError: true,
-      );
-    }
-
     final String taskId = args['task_id'];
 
     if (taskToAgent(taskId) == null) {
@@ -705,7 +665,7 @@ class A2AMCPBridge {
       inputSchema: inputSchema,
       outputSchema: outputSchema,
     );
-    registerTool(registerAgent, _registerAgentCallback as ToolCallback);
+    registerTool(registerAgent, FunctionToolCallback(_registerAgentCallback));
 
     // List Agents
     //  List all registered A2A agents.
