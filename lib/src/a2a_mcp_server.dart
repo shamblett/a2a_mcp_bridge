@@ -102,13 +102,13 @@ class A2AMCPServer {
   }
 
   /// Register a tool
-  void registerTool(Tool tool, ToolCallback callback) {
-    _server.tool(
+  void registerTool(Tool tool, FunctionToolCallback callback) {
+    _server.registerTool(
       tool.name,
       description: tool.description,
-      toolInputSchema: tool.inputSchema,
-      toolOutputSchema: tool.outputSchema,
-      callback: callback,
+      inputSchema: ToolInputSchema.fromJson(tool.inputSchema.toJson()),
+      outputSchema: ToolOutputSchema.fromJson(tool.outputSchema!.toJson()),
+      callback: callback.function,
     );
   }
 }

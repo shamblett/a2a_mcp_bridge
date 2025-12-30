@@ -187,7 +187,7 @@ class A2AMCPBridge {
       _registeredTools.where((t) => t.name == toolName).isNotEmpty;
 
   /// Register a tool
-  void registerTool(Tool tool, ToolCallback callback) {
+  void registerTool(Tool tool, FunctionToolCallback callback) {
     _registeredTools.add(tool);
     _mcpServer.registerTool(tool, callback);
   }
@@ -269,25 +269,18 @@ class A2AMCPBridge {
   }
 
   // Register agent callback
-  // Doesn't check if the agent is already registered, kust registers it again
-  Future<CallToolResult> _registerAgentCallback({
-    Map<String, dynamic>? args,
-    RequestHandlerExtra? extra,
-  }) async {
-    if (args == null) {
-      A2ALog.warn('A2AMCPBridge::_registerAgentCallback - args are null');
-      return CallToolResult.fromContent(
-        content: [TextContent(text: '_registerAgentCallback - args are null')],
-        isError: true,
-      );
-    }
+  // Doesn't check if the agent is already registered, just registers it again
+  Future<CallToolResult> _registerAgentCallback(
+    Map<String, dynamic> args,
+    RequestHandlerExtra extra,
+  ) async {
     final url = args['url'];
     A2AAgentCard agentCard;
     try {
       final client = A2AClient(url);
       agentCard = await client.getAgentCard();
     } catch (e) {
-      return CallToolResult.fromContent(
+      return CallToolResult(
         content: [
           TextContent(
             text:
@@ -301,7 +294,7 @@ class A2AMCPBridge {
       A2ALog.warn(
         'A2AMcpServer::_registerAgentCallback - cannot ascertain agent name at $url',
       );
-      return CallToolResult.fromContent(
+      return CallToolResult(
         content: [
           TextContent(
             text:
@@ -324,10 +317,10 @@ class A2AMCPBridge {
   }
 
   // List agents callback
-  Future<CallToolResult> _listAgentsCallback({
+  Future<CallToolResult> _listAgentsCallback(
     Map<String, dynamic>? args,
     RequestHandlerExtra? extra,
-  }) async {
+  ) async {
     final registeredAgents = registeredAgentNames;
     A2ALog.info(
       'A2AMCPBridge:: Listed ${_registeredAgents.keys.length} agents, response $registeredAgents',
@@ -348,19 +341,10 @@ class A2AMCPBridge {
   // Unregister agent callback
   // Doesn't check if the agent is already registered, just unregisters it if
   // it is registered, as such this always returns success if the arguments are valid
-  Future<CallToolResult> _unregisterAgentCallback({
-    Map<String, dynamic>? args,
-    RequestHandlerExtra? extra,
-  }) async {
-    if (args == null) {
-      A2ALog.warn('A2AMCPBridge::_unregisterAgentCallback - args are null');
-      return CallToolResult.fromContent(
-        content: [
-          TextContent(text: '_unregisterAgentCallback - args are null'),
-        ],
-        isError: true,
-      );
-    }
+  Future<CallToolResult> _unregisterAgentCallback(
+    Map<String, dynamic> args,
+    RequestHandlerExtra extra,
+  ) async {
     final url = args['url'];
     String? agentName = lookupAgent(url);
     agentName ??= 'Agent Not Found';
@@ -378,18 +362,10 @@ class A2AMCPBridge {
   }
 
   // Send message callback
-  Future<CallToolResult> _sendMessageCallback({
-    Map<String, dynamic>? args,
-    RequestHandlerExtra? extra,
-  }) async {
-    if (args == null) {
-      A2ALog.warn('A2AMCPBridge::_sendMessageCallback - args are null');
-      return CallToolResult.fromContent(
-        content: [TextContent(text: '_sendMessageCallback - args are null')],
-        isError: true,
-      );
-    }
-
+  Future<CallToolResult> _sendMessageCallback(
+    Map<String, dynamic> args,
+    RequestHandlerExtra extra,
+  ) async {
     final String url = args['url'];
     final message = args['message'];
     // Session id if present
@@ -418,7 +394,7 @@ class A2AMCPBridge {
         A2ALog.warn(
           'A2AMCPBridge::_sendMessageCallback - error response ${errorResponse.error?.rpcErrorCode} from agent',
         );
-        return CallToolResult.fromContent(
+        return CallToolResult(
           content: [
             TextContent(
               text:
@@ -464,7 +440,7 @@ class A2AMCPBridge {
         "structuredContent": result,
       });
     } catch (e) {
-      return CallToolResult.fromContent(
+      return CallToolResult(
         content: [
           TextContent(
             text:
@@ -477,25 +453,17 @@ class A2AMCPBridge {
   }
 
   // Get task result
-  Future<CallToolResult> _getTaskResultCallback({
-    Map<String, dynamic>? args,
-    RequestHandlerExtra? extra,
-  }) async {
-    if (args == null) {
-      A2ALog.warn('A2AMCPBridge::_getTaskResultCallback - args are null');
-      return CallToolResult.fromContent(
-        content: [TextContent(text: '_getTaskResultCallback - args are null')],
-        isError: true,
-      );
-    }
-
+  Future<CallToolResult> _getTaskResultCallback(
+    Map<String, dynamic> args,
+    RequestHandlerExtra extra,
+  ) async {
     final taskId = args['task_id'];
 
     if (!_taskToAgent.containsKey(taskId)) {
       A2ALog.warn(
         'A2AMCPBridge::_getTaskResultCallback - no registered agent for task Id $taskId',
       );
-      return CallToolResult.fromContent(
+      return CallToolResult(
         content: [
           TextContent(
             text:
@@ -531,7 +499,7 @@ class A2AMCPBridge {
         A2ALog.warn(
           'A2AMCPBridge::_sendMessageCallback - error response ${errorResponse.error?.rpcErrorCode} from agent',
         );
-        return CallToolResult.fromContent(
+        return CallToolResult(
           content: [
             TextContent(
               text:
@@ -576,7 +544,7 @@ class A2AMCPBridge {
         "structuredContent": result,
       });
     } catch (e) {
-      return CallToolResult.fromContent(
+      return CallToolResult(
         content: [
           TextContent(
             text:
@@ -589,25 +557,17 @@ class A2AMCPBridge {
   }
 
   // Cancel task
-  Future<CallToolResult> _cancelTaskCallback({
-    Map<String, dynamic>? args,
-    RequestHandlerExtra? extra,
-  }) async {
-    if (args == null) {
-      A2ALog.warn('A2AMCPBridge::_cancelTaskCallback - args are null');
-      return CallToolResult.fromContent(
-        content: [TextContent(text: '_cancelTaskCallback - args are null')],
-        isError: true,
-      );
-    }
-
+  Future<CallToolResult> _cancelTaskCallback(
+    Map<String, dynamic> args,
+    RequestHandlerExtra extra,
+  ) async {
     final String taskId = args['task_id'];
 
     if (taskToAgent(taskId) == null) {
       A2ALog.warn(
         'A2AMCPBridge::_cancelTaskCallback - no registered agent for task Id $taskId',
       );
-      return CallToolResult.fromContent(
+      return CallToolResult(
         content: [TextContent(text: 'No task registered for Task Id $taskId')],
         isError: true,
       );
@@ -635,7 +595,7 @@ class A2AMCPBridge {
         A2ALog.warn(
           'A2AMCPBridge::_cancelTaskCallback - error response ${errorResponse.error?.rpcErrorCode} from agent',
         );
-        return CallToolResult.fromContent(
+        return CallToolResult(
           content: [
             TextContent(
               text:
@@ -659,7 +619,7 @@ class A2AMCPBridge {
         });
       }
     } catch (e) {
-      return CallToolResult.fromContent(
+      return CallToolResult(
         content: [
           TextContent(
             text:
@@ -679,14 +639,23 @@ class A2AMCPBridge {
     // Register an A2A agent with the bridge server.
     var inputSchema = ToolInputSchema(
       properties: {
-        "url": {"type": "string", "description": "The agent URL"},
+        "url": JsonSchema.fromJson({
+          "type": "string",
+          "description": "The agent URL",
+        }),
       },
       required: ["url"],
     );
     var outputSchema = ToolOutputSchema(
       properties: {
-        "agent_name": {"type": "string", "description": "Name of the agent"},
-        "url": {"type": "string", "description": "Url of the agent"},
+        "agent_name": JsonSchema.fromJson({
+          "type": "string",
+          "description": "Name of the agent",
+        }),
+        "url": JsonSchema.fromJson({
+          "type": "string",
+          "description": "Url of the agent",
+        }),
       },
       required: ["agent_name", "url"],
     );
@@ -696,14 +665,17 @@ class A2AMCPBridge {
       inputSchema: inputSchema,
       outputSchema: outputSchema,
     );
-    registerTool(registerAgent, _registerAgentCallback);
+    registerTool(registerAgent, FunctionToolCallback(_registerAgentCallback));
 
     // List Agents
     //  List all registered A2A agents.
     inputSchema = ToolInputSchema(properties: {});
     outputSchema = ToolOutputSchema(
       properties: {
-        "result": {"type": "any", "description": "Registered Agents by name"},
+        "result": JsonSchema.fromJson({
+          "type": "any",
+          "description": "Registered Agents by name",
+        }),
       },
       required: ["result"],
     );
@@ -714,19 +686,25 @@ class A2AMCPBridge {
       inputSchema: inputSchema,
       outputSchema: outputSchema,
     );
-    registerTool(listAgents, _listAgentsCallback);
+    registerTool(listAgents, FunctionToolCallback(_listAgentsCallback));
 
     // Unregister agent
     // Unregister an A2A agent from the bridge server.
     inputSchema = ToolInputSchema(
       properties: {
-        "url": {"type": "string", "description": "The Agent URL"},
+        "url": JsonSchema.fromJson({
+          "type": "string",
+          "description": "The Agent URL",
+        }),
       },
       required: ["url"],
     );
     outputSchema = ToolOutputSchema(
       properties: {
-        "agent_name": {"type": "string", "description": "The Agent name"},
+        "agent_name": JsonSchema.fromJson({
+          "type": "string",
+          "description": "The Agent name",
+        }),
       },
     );
     final unRegisterAgent = Tool(
@@ -735,31 +713,40 @@ class A2AMCPBridge {
       inputSchema: inputSchema,
       outputSchema: outputSchema,
     );
-    registerTool(unRegisterAgent, _unregisterAgentCallback);
+    registerTool(
+      unRegisterAgent,
+      FunctionToolCallback(_unregisterAgentCallback),
+    );
 
     // Send Message
     // Send a message to an A2A agent, non-streaming.
     inputSchema = ToolInputSchema(
       properties: {
-        "url": {"type": "string", "description": "The Agent URL"},
-        "message": {
+        "url": JsonSchema.fromJson({
+          "type": "string",
+          "description": "The Agent URL",
+        }),
+        "message": JsonSchema.fromJson({
           "type": "string",
           "description": "Message to send to the agent",
-        },
-        "session_id": {
+        }),
+        "session_id": JsonSchema.fromJson({
           "type": "string",
           "description": "Multi conversation session id",
-        },
+        }),
       },
       required: ["url", "message"],
     );
     outputSchema = ToolOutputSchema(
       properties: {
-        "task_id": {"type": "string", "description": "The Task Id"},
-        "response": {
+        "task_id": JsonSchema.fromJson({
+          "type": "string",
+          "description": "The Task Id",
+        }),
+        "response": JsonSchema.fromJson({
           "type": "string",
           "description": "Response from the Agent",
-        },
+        }),
       },
       required: ["task_id"],
     );
@@ -769,27 +756,33 @@ class A2AMCPBridge {
       inputSchema: inputSchema,
       outputSchema: outputSchema,
     );
-    registerTool(sendMessage, _sendMessageCallback);
+    registerTool(sendMessage, FunctionToolCallback(_sendMessageCallback));
 
     // Get Task result
     // Retrieve the result of a task from an A2A agent.
     inputSchema = ToolInputSchema(
       properties: {
-        "task_id": {"type": "string", "description": "The Task id"},
+        "task_id": JsonSchema.fromJson({
+          "type": "string",
+          "description": "The Task id",
+        }),
       },
       required: ["task_id"],
     );
     outputSchema = ToolOutputSchema(
       properties: {
-        "task_id": {"type": "string", "description": "The task id"},
-        "task_state": {
+        "task_id": JsonSchema.fromJson({
+          "type": "string",
+          "description": "The task id",
+        }),
+        "task_state": JsonSchema.fromJson({
           "type": "string",
           "description": "The state of the task",
-        },
-        "message": {
+        }),
+        "message": JsonSchema.fromJson({
           "type": "string",
           "description": "The response from the Agent(may be from cache",
-        },
+        }),
       },
       required: ["task_id"],
     );
@@ -799,19 +792,25 @@ class A2AMCPBridge {
       inputSchema: inputSchema,
       outputSchema: outputSchema,
     );
-    registerTool(getTaskResult, _getTaskResultCallback);
+    registerTool(getTaskResult, FunctionToolCallback(_getTaskResultCallback));
 
     // Cancel a task
     // Cancel a running task on an A2A agent.
     inputSchema = ToolInputSchema(
       properties: {
-        "task_id": {"type": "string", "description": "The task id"},
+        "task_id": JsonSchema.fromJson({
+          "type": "string",
+          "description": "The task id",
+        }),
       },
       required: ["task_id"],
     );
     outputSchema = ToolOutputSchema(
       properties: {
-        "task_id": {"type": "string", "description": "The task id"},
+        "task_id": JsonSchema.fromJson({
+          "type": "string",
+          "description": "The task id",
+        }),
       },
       required: ["task_id"],
     );
@@ -821,6 +820,6 @@ class A2AMCPBridge {
       inputSchema: inputSchema,
       outputSchema: outputSchema,
     );
-    registerTool(cancelTask, _cancelTaskCallback);
+    registerTool(cancelTask, FunctionToolCallback(_cancelTaskCallback));
   }
 }
